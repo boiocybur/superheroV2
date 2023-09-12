@@ -15,6 +15,7 @@ public class Database {
             System.out.println("Superhelten er tilføjet til databasen.");
         } else {
             System.out.println("Databasen er fuld. Kan ikke tilføje flere superhelte.");
+            System.exit(0);
         }
     }
 
@@ -30,6 +31,4 @@ public class Database {
         }
         return null; // Return null if superhero is not found
     }
-
-    // Additional methods for updating and deleting superheroes can be added here
 }

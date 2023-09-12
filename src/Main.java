@@ -26,10 +26,13 @@ public class Main {
                     boolean erMenneskelig = scanner.nextLine().equalsIgnoreCase("ja");
                     System.out.print("Indtast skabelsesår: ");
                     int skabelsesaar = scanner.nextInt();
-                    System.out.print("Indtast styrke: ");
-                    String styrke = scanner.nextLine();
+                    scanner.nextLine();
+                    System.out.print("Indtast superpower: ");
+                    String superpower = scanner.nextLine();
+                    System.out.println("Indtast styrke [0-100]: ");
+                    int strength = scanner.nextInt();
 
-                    Superhero superhero = new Superhero(navn, superheltnavn, erMenneskelig, skabelsesaar, styrke);
+                    Superhero superhero = new Superhero(navn, superheltnavn, erMenneskelig, skabelsesaar,superpower, strength);
                     database.addSuperhero(superhero);
                     break;
                 case 2:
