@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Superhero {
     private String name;
     private String superHeroName;

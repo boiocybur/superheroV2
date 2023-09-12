@@ -1,55 +1,72 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Database database = new Database(); // Opret en database
+        Database database = new Database(); // creates a database
 
         while (true) {
             // Vis menu
-            System.out.println("Menu:");
-            System.out.println("1. Opret en ny superhelt");
-            System.out.println("2. Afslut programmet");
-            System.out.print("Vælg en handling: ");
+            System.out.println("""
+                    Welcome to Superhero database.
+                    1. Create hero
+                    2. Show heroes
+                    3. Find heroes
+                    9. Exit
+                    """);
 
-            int valg = scanner.nextInt();
-            scanner.nextLine(); // Fjern newline efter nextInt()
 
-            switch (valg) {
-                case 1:
-                    // Opret en ny superhelt og tilføj den til databasen
-                    System.out.print("Indtast navn på superhelt: ");
-                    String navn = scanner.nextLine();
-                    System.out.print("Indtast superheltnavn: ");
-                    String superheltnavn = scanner.nextLine();
-                    System.out.print("Er superhelten menneskelig (ja/nej): ");
-                    boolean erMenneskelig = scanner.nextLine().equalsIgnoreCase("ja");
-                    System.out.print("Indtast skabelsesår: ");
-                    int skabelsesaar = scanner.nextInt();
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Removes newline after nextInt()
+
+            switch (choice) {
+                case 1 -> {
+                    // create a new superhero and add to database
+                    System.out.print("Real name of superhero: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Alias of superhero: ");
+                    String superHeroName = scanner.nextLine();
+                    System.out.print("Is hero human? (ja/nej): ");
+                    boolean isHuman = scanner.nextLine().equalsIgnoreCase("ja");
+                    System.out.print("Creation year: ");
+                    int creationYear = scanner.nextInt();
                     scanner.nextLine();
-                    System.out.print("Indtast superpower: ");
+                    System.out.print("Chosen superpower: ");
                     String superpower = scanner.nextLine();
-                    System.out.println("Indtast styrke [0-100]: ");
+                    System.out.println("Overall strength [0-100]: ");
                     int strength = scanner.nextInt();
-
-                    Superhero superhero = new Superhero(navn, superheltnavn, erMenneskelig, skabelsesaar,superpower, strength);
+                    Superhero superhero = new Superhero(name, superHeroName, isHuman, creationYear, superpower, strength);
                     database.addSuperhero(superhero);
-
-                    // Udskriv brugerens input
-                    System.out.println("Brugerens input er:");
-                    System.out.println("Navn på superhelt: " + navn);
-                    System.out.println("Superheltnavn: " + superheltnavn);
-                    System.out.println("Er superhelten menneskelig: " + erMenneskelig);
-                    System.out.println("Skabelsesår: " + skabelsesaar);
-                    System.out.println("Superpower: " + superpower);
-                    System.out.println("Styrke: " + strength);
+                    System.out.println("Superhero added to the database.");
                     break;
-                case 2:
-                    // Afslut programmet
-                    System.out.println("Afslutter programmet.");
+                }
+                case 2 -> {
+                    if (database.getAntalSuperheroes() == 0) {
+                        System.out.println("Der er ingen superhelte i databasen.");
+                    } else {
+                        ArrayList<Superhero> heroes = database.hentAlleSuperhelte();
+                        System.out.println("Superhelte i databasen:");
+                        for (Superhero hero : heroes) {
+                            System.out.println("Navn: " + hero.getName());
+                            System.out.println("Superheltnavn: " + hero.getSuperHeroName());
+                            System.out.println("Er menneskelig: " + (hero.isHuman() ? "Ja" : "Nej"));
+                            System.out.println("Skabelsesår: " + hero.getCreationYear());
+                            System.out.println("Superpower: " + hero.getSuperpower());
+                            System.out.println("Styrke: " + hero.getStrength());
+                            System.out.println("----------------------");
+                        }
+                    }
+                    break;
+                }
+
+                case 9 -> {
+                    // exit program
+                    System.out.println("Exiting program.");
                     System.exit(0);
-                default:
-                    System.out.println("Ugyldigt valg. Prøv igen.");
+                }
+                default -> System.out.println("Invalid choice. Try again.");
+
             }
         }
     }

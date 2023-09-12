@@ -1,34 +1,29 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Database {
-    private Superhero[] superhero;
-    private int antalSuperheroes;
-
-    public Database() {
-        this.superhero = new Superhero[5]; // Start with space for 5 superheroes
-        this.antalSuperheroes = 0;
-    }
+    private ArrayList<Superhero> superheroes = new ArrayList<>();
 
     public void addSuperhero(Superhero superhero) {
-        if (antalSuperheroes < this.superhero.length) {
-            this.superhero[antalSuperheroes++] = superhero;
-            System.out.println("Superhelten er tilføjet til databasen.");
-        } else {
-            System.out.println("Databasen er fuld. Kan ikke tilføje flere superhelte.");
-            System.exit(0);
-        }
+        superheroes.add(superhero);
+        System.out.println("Superhero added to the database.");
     }
 
-    public Superhero[] hentAlleSuperhelte() {
-        return Arrays.copyOf(superhero, antalSuperheroes);
+    public ArrayList<Superhero> hentAlleSuperhelte() {
+        return superheroes;
     }
 
-    public Superhero findSuperhero(String navn) {
-        for (int i = 0; i < antalSuperheroes; i++) {
-            if (superhero[i].getName().equalsIgnoreCase(navn)) {
-                return superhero[i];
+    public Superhero findSuperhero(String name) {
+        // Find superheroes whose name matches the search criteria
+        for (Superhero hero : superheroes) {
+            if (hero.getName().equalsIgnoreCase(name)) {
+                return hero;
             }
         }
-        return null; // Return null if superhero is not found
+        // No match found
+        return null;
+    }
+
+    public int getAntalSuperheroes() {
+        return superheroes.size();
     }
 }
