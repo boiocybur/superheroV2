@@ -34,6 +34,15 @@ public class Main {
 
                     Superhero superhero = new Superhero(navn, superheltnavn, erMenneskelig, skabelsesaar,superpower, strength);
                     database.addSuperhero(superhero);
+
+                    // Udskriv brugerens input
+                    System.out.println("Brugerens input er:");
+                    System.out.println("Navn på superhelt: " + navn);
+                    System.out.println("Superheltnavn: " + superheltnavn);
+                    System.out.println("Er superhelten menneskelig: " + erMenneskelig);
+                    System.out.println("Skabelsesår: " + skabelsesaar);
+                    System.out.println("Superpower: " + superpower);
+                    System.out.println("Styrke: " + strength);
                     break;
                 case 2:
                     // Afslut programmet
