@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Database database = new Database(); // creates a database
+        Controller controller = new Controller(database);  //Passes database to Controller
 
         while (true) {
             // Vis menu
@@ -39,27 +40,45 @@ public class Main {
                     Superhero superhero = new Superhero(name, superHeroName, isHuman, creationYear, superpower, strength);
                     database.addSuperhero(superhero);
                     System.out.println("Superhero added to the database.");
-                    break;
                 }
                 case 2 -> {
                     if (database.getAntalSuperheroes() == 0) {
-                        System.out.println("Der er ingen superhelte i databasen.");
+                        System.out.println("There is no superheroes in the database.");
                     } else {
-                        ArrayList<Superhero> heroes = database.hentAlleSuperhelte();
-                        System.out.println("Superhelte i databasen:");
+                        ArrayList<Superhero> heroes = database.getAllSuperheroes();
+                        System.out.println("Superheroes in the database:");
                         for (Superhero hero : heroes) {
-                            System.out.println("Navn: " + hero.getName());
-                            System.out.println("Superheltnavn: " + hero.getSuperHeroName());
-                            System.out.println("Er menneskelig: " + (hero.isHuman() ? "Ja" : "Nej"));
-                            System.out.println("Skabelsesår: " + hero.getCreationYear());
+                            System.out.println("Name: " + hero.getName());
+                            System.out.println("Superhero name: " + hero.getSuperHeroName());
+                            System.out.println("Is a human: " + (hero.isHuman() ? "Yes" : "No"));
+                            System.out.println("Creation year: " + hero.getCreationYear());
                             System.out.println("Superpower: " + hero.getSuperpower());
-                            System.out.println("Styrke: " + hero.getStrength());
+                            System.out.println("Strength: " + hero.getStrength());
                             System.out.println("----------------------");
                         }
                     }
-                    break;
                 }
+                case 3 -> {
+                    System.out.print("Enter search criteria (superhero name or real name): ");
+                    String searchCriteria = scanner.nextLine();
 
+                    ArrayList<Superhero> searchResult = database.searchSuperhero(searchCriteria);
+
+                    if (searchResult.isEmpty()) {
+                        System.out.println("No superheroes matching the search criteria found.");
+                    } else {
+                        System.out.println("Superheroes found:");
+                        for (Superhero superhero : searchResult) {
+                            System.out.println("Name: " + superhero.getName());
+                            System.out.println("Superhero name: " + superhero.getSuperHeroName());
+                            System.out.println("Is a human: " + (superhero.isHuman() ? "Yes" : "No"));
+                            System.out.println("Creation year: " + superhero.getCreationYear());
+                            System.out.println("Superpower: " + superhero.getSuperpower());
+                            System.out.println("Strength: " + superhero.getStrength());
+                            System.out.println("----------------------");
+                        }
+                    }
+                }
                 case 9 -> {
                     // exit program
                     System.out.println("Exiting program.");
