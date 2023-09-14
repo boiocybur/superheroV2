@@ -33,7 +33,6 @@ public class Database {
         return searchResult;
     }
 
-    // Removed display logic from getAllSuperheroes
     public void displayAllSuperheroes() {
         ArrayList<Superhero> superheroes = getAllSuperheroes();
         if (superheroes.isEmpty()) {
@@ -47,7 +46,7 @@ public class Database {
         }
     }
 
-    private void printHeroDetails(Superhero hero) {
+    public void printHeroDetails(Superhero hero) {
         System.out.println("Name: " + hero.getName());
         System.out.println("Superhero name: " + hero.getSuperHeroName());
         System.out.println("Is a human: " + (hero.isHuman() ? "Yes" : "No"));
