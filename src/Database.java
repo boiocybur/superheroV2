@@ -65,17 +65,29 @@ public class Database {
                 superhero.getCreationYear() >= 0 &&
                 superhero.getStrength() >= 0;
     }
-    public void editSuperhero(String nameToEdit, Superhero editedSuperhero) {
+
+    public void editSuperhero(String nameToEdit, Superhero superheroToEdit) {
+        boolean superheroFound = false;
+
         for (int i = 0; i < superheroes.size(); i++) {
             Superhero superhero = superheroes.get(i);
-            if (superhero.getName().equalsIgnoreCase(nameToEdit)) {
-                // Find superhero with matching name og update
-                superheroes.set(i, editedSuperhero);
+            if (superhero.getName().toLowerCase().contains(nameToEdit.toLowerCase())) {
+                // Find superhero with a name containing the search criteria and update
+                superheroes.set(i, superheroToEdit);
                 System.out.println("Superhero updated successfully.");
-                return; // exits when
+
+                // Print the updated details
+                System.out.println("Updated details of the superhero:");
+                printHeroDetails(superheroToEdit);
+
+                superheroFound = true;
             }
         }
-        //if superhero is not found in database
-        System.out.println("Superhero not found.");
+
+        if (!superheroFound) {
+            // If no matching superhero is found in the database
+            System.out.println("Superhero not found.");
+        }
     }
+
 }

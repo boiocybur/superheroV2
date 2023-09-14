@@ -76,13 +76,14 @@ public class UserInterface {
                     }
                 }
                 case 4 -> {
-                    System.out.println("Enter the name of the superhero you wish to edit: ");
-                    String nameToEdit = scanner.nextLine();
+                    System.out.println("Enter the name or superhero name of the superhero you wish to edit: ");
+                    String partialSearchCriteria = scanner.nextLine();
 
-                    // Search for the superhero in the database
+                    // Search for the superhero in the database with a partial match in either name or superhero name
                     Superhero superheroToEdit = null;
                     for (Superhero hero : database.getAllSuperheroes()) {
-                        if (hero.getName().equalsIgnoreCase(nameToEdit)) {
+                        if (hero.getName().toLowerCase().contains(partialSearchCriteria.toLowerCase()) ||
+                                hero.getSuperHeroName().toLowerCase().contains(partialSearchCriteria.toLowerCase())) {
                             superheroToEdit = hero;
                             break; // Stop searching once found
                         }
@@ -117,11 +118,9 @@ public class UserInterface {
                         superheroToEdit.setSuperpower(newSuperpower);
                         superheroToEdit.setStrength(newStrength);
                         // Update other superhero properties as needed
-
-                        System.out.println("Superhero updated successfully.");
+                        database.editSuperhero(partialSearchCriteria, superheroToEdit);
                     }
-                    break;
-                }
+            }
 
                 case 9 -> {
                     // exit program
