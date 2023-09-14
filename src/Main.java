@@ -38,23 +38,16 @@ public class Main {
                     System.out.println("Overall strength [0-100]: ");
                     int strength = scanner.nextInt();
                     Superhero superhero = new Superhero(name, superHeroName, isHuman, creationYear, superpower, strength);
-                    database.addSuperhero(superhero);
-                    System.out.println("Superhero added to the database.");
+                    controller.addSuperheroToDatabase(name, superHeroName, isHuman, creationYear, superpower, strength);
                 }
                 case 2 -> {
-                    if (database.getAntalSuperheroes() == 0) {
+                    if (database.getNumberOfSuperheroes() == 0) {
                         System.out.println("There is no superheroes in the database.");
                     } else {
                         ArrayList<Superhero> heroes = database.getAllSuperheroes();
                         System.out.println("Superheroes in the database:");
                         for (Superhero hero : heroes) {
-                            System.out.println("Name: " + hero.getName());
-                            System.out.println("Superhero name: " + hero.getSuperHeroName());
-                            System.out.println("Is a human: " + (hero.isHuman() ? "Yes" : "No"));
-                            System.out.println("Creation year: " + hero.getCreationYear());
-                            System.out.println("Superpower: " + hero.getSuperpower());
-                            System.out.println("Strength: " + hero.getStrength());
-                            System.out.println("----------------------");
+                            database.displayAllSuperheroes();
                         }
                     }
                 }
@@ -69,16 +62,12 @@ public class Main {
                     } else {
                         System.out.println("Superheroes found:");
                         for (Superhero superhero : searchResult) {
-                            System.out.println("Name: " + superhero.getName());
-                            System.out.println("Superhero name: " + superhero.getSuperHeroName());
-                            System.out.println("Is a human: " + (superhero.isHuman() ? "Yes" : "No"));
-                            System.out.println("Creation year: " + superhero.getCreationYear());
-                            System.out.println("Superpower: " + superhero.getSuperpower());
-                            System.out.println("Strength: " + superhero.getStrength());
-                            System.out.println("----------------------");
+                            database.displayAllSuperheroes();
                         }
+
                     }
-                }
+                    }
+
                 case 9 -> {
                     // exit program
                     System.out.println("Exiting program.");
