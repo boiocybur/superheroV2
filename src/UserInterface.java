@@ -94,7 +94,6 @@ public class UserInterface {
                     } else {
                         System.out.println("Matching superheroes:");
 
-                        // Display the matching superheroes with indices
                         for (int i = 0; i < matchingSuperheroes.size(); i++) {
                             Superhero hero = matchingSuperheroes.get(i);
                             System.out.println(i + 1 + ". " + hero.getName() + " (" + hero.getSuperHeroName() + ")");
@@ -122,16 +121,14 @@ public class UserInterface {
                             String newSuperpower = scanner.nextLine();
                             System.out.print("Enter the new strength [0-100]: ");
                             int newStrength = scanner.nextInt();
-                            // Collect and update other superhero information as needed
 
-                            // Update the superhero's information
                             superheroToEdit.setName(newName);
                             superheroToEdit.setSuperHeroName(newAlias);
-                            superheroToEdit.setIsHuman(newIsHuman); // Assuming you have a newIsHuman variable
-                            superheroToEdit.setCreationYear(newCreationYear); // Assuming you have a newCreationYear variable
+                            superheroToEdit.setIsHuman(newIsHuman);
+                            superheroToEdit.setCreationYear(newCreationYear);
                             superheroToEdit.setSuperpower(newSuperpower);
                             superheroToEdit.setStrength(newStrength);
-                            // Update other superhero properties as needed
+
                             database.editSuperhero(partialSearchCriteria, superheroToEdit);
                         } else {
                             System.out.println("Invalid selection. Please choose a superhero from the list.");
