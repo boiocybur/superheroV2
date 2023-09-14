@@ -47,12 +47,14 @@ public class Database {
     }
 
     public void printHeroDetails(Superhero hero) {
+        System.out.println("----------------------");
         System.out.println("Name: " + hero.getName());
         System.out.println("Superhero name: " + hero.getSuperHeroName());
         System.out.println("Is a human: " + (hero.isHuman() ? "Yes" : "No"));
         System.out.println("Creation year: " + hero.getCreationYear());
         System.out.println("Superpower: " + hero.getSuperpower());
         System.out.println("Strength: " + hero.getStrength());
+        System.out.println("----------------------");
     }
 
     private boolean isValidSuperhero(Superhero superhero) {

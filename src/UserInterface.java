@@ -69,6 +69,7 @@ public class UserInterface {
                         System.out.println("Superheroes found:");
                         for (Superhero superhero : searchResult) {
                             database.printHeroDetails(superhero);
+
                         }
 
                     }
