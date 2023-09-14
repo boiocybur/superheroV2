@@ -76,49 +76,66 @@ public class UserInterface {
                     }
                 }
                 case 4 -> {
-                    System.out.println("Enter the name or superhero name of the superhero you wish to edit: ");
+                    System.out.println("Enter a part of the name or superhero name of the superhero you wish to edit: ");
                     String partialSearchCriteria = scanner.nextLine();
 
-                    // Search for the superhero in the database with a partial match in either name or superhero name
-                    Superhero superheroToEdit = null;
+                    ArrayList<Superhero> matchingSuperheroes = new ArrayList<>();
+
+                    // Search for superheroes with a partial match in either name or superhero name
                     for (Superhero hero : database.getAllSuperheroes()) {
                         if (hero.getName().toLowerCase().contains(partialSearchCriteria.toLowerCase()) ||
                                 hero.getSuperHeroName().toLowerCase().contains(partialSearchCriteria.toLowerCase())) {
-                            superheroToEdit = hero;
-                            break; // Stop searching once found
+                            matchingSuperheroes.add(hero);
                         }
                     }
 
-                    if (superheroToEdit == null) {
-                        System.out.println("Superhero not found.");
+                    if (matchingSuperheroes.isEmpty()) {
+                        System.out.println("No superheroes found matching the search criteria.");
                     } else {
-                        System.out.println("Current details of the superhero:");
-                        database.printHeroDetails(superheroToEdit);
+                        System.out.println("Matching superheroes:");
 
-                        System.out.print("Enter the new name: ");
-                        String newName = scanner.nextLine();
-                        System.out.print("Enter the new alias: ");
-                        String newAlias = scanner.nextLine();
-                        System.out.print("Enter the new racial status: ");
-                        boolean newIsHuman = scanner.nextLine().equalsIgnoreCase("ja");
-                        System.out.print("Enter the new creation year: ");
-                        int newCreationYear = scanner.nextInt();
-                        scanner.nextLine();
-                        System.out.print("Enter the new superpower: ");
-                        String newSuperpower = scanner.nextLine();
-                        System.out.print("Enter the new strength [0-100]: ");
-                        int newStrength = scanner.nextInt();
-                        // Collect and update other superhero information as needed
+                        // Display the matching superheroes with indices
+                        for (int i = 0; i < matchingSuperheroes.size(); i++) {
+                            Superhero hero = matchingSuperheroes.get(i);
+                            System.out.println(i + 1 + ". " + hero.getName() + " (" + hero.getSuperHeroName() + ")");
+                        }
 
-                        // Update the superhero's information
-                        superheroToEdit.setName(newName);
-                        superheroToEdit.setSuperHeroName(newAlias);
-                        superheroToEdit.setIsHuman(newIsHuman); // Assuming you have a newIsHuman variable
-                        superheroToEdit.setCreationYear(newCreationYear); // Assuming you have a newCreationYear variable
-                        superheroToEdit.setSuperpower(newSuperpower);
-                        superheroToEdit.setStrength(newStrength);
-                        // Update other superhero properties as needed
-                        database.editSuperhero(partialSearchCriteria, superheroToEdit);
+                        System.out.print("Enter the number of the superhero you wish to edit: ");
+                        int selection = scanner.nextInt();
+
+                        if (selection >= 1 && selection <= matchingSuperheroes.size()) {
+                            Superhero superheroToEdit = matchingSuperheroes.get(selection - 1);
+
+                            System.out.println("Current details of the superhero:");
+                            database.printHeroDetails(superheroToEdit);
+
+                            System.out.print("Enter the new name: ");
+                            String newName = scanner.nextLine();
+                            System.out.print("Enter the new alias: ");
+                            String newAlias = scanner.nextLine();
+                            System.out.print("Enter the new racial status: ");
+                            boolean newIsHuman = scanner.nextLine().equalsIgnoreCase("ja");
+                            System.out.print("Enter the new creation year: ");
+                            int newCreationYear = scanner.nextInt();
+                            scanner.nextLine();
+                            System.out.print("Enter the new superpower: ");
+                            String newSuperpower = scanner.nextLine();
+                            System.out.print("Enter the new strength [0-100]: ");
+                            int newStrength = scanner.nextInt();
+                            // Collect and update other superhero information as needed
+
+                            // Update the superhero's information
+                            superheroToEdit.setName(newName);
+                            superheroToEdit.setSuperHeroName(newAlias);
+                            superheroToEdit.setIsHuman(newIsHuman); // Assuming you have a newIsHuman variable
+                            superheroToEdit.setCreationYear(newCreationYear); // Assuming you have a newCreationYear variable
+                            superheroToEdit.setSuperpower(newSuperpower);
+                            superheroToEdit.setStrength(newStrength);
+                            // Update other superhero properties as needed
+                            database.editSuperhero(partialSearchCriteria, superheroToEdit);
+                        } else {
+                            System.out.println("Invalid selection. Please choose a superhero from the list.");
+                        }
                     }
             }
 
