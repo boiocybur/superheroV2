@@ -20,6 +20,7 @@ public class UserInterface {
                     1. Create hero
                     2. Show heroes
                     3. Find heroes
+                    4. Edit heroes
                     9. Exit
                     """);
 
@@ -74,6 +75,53 @@ public class UserInterface {
 
                     }
                 }
+                case 4 -> {
+                    System.out.println("Enter the name of the superhero you wish to edit: ");
+                    String nameToEdit = scanner.nextLine();
+
+                    // Search for the superhero in the database
+                    Superhero superheroToEdit = null;
+                    for (Superhero hero : database.getAllSuperheroes()) {
+                        if (hero.getName().equalsIgnoreCase(nameToEdit)) {
+                            superheroToEdit = hero;
+                            break; // Stop searching once found
+                        }
+                    }
+
+                    if (superheroToEdit == null) {
+                        System.out.println("Superhero not found.");
+                    } else {
+                        System.out.println("Current details of the superhero:");
+                        database.printHeroDetails(superheroToEdit);
+
+                        System.out.print("Enter the new name: ");
+                        String newName = scanner.nextLine();
+                        System.out.print("Enter the new alias: ");
+                        String newAlias = scanner.nextLine();
+                        System.out.print("Enter the new racial status: ");
+                        boolean newIsHuman = scanner.nextLine().equalsIgnoreCase("ja");
+                        System.out.print("Enter the new creation year: ");
+                        int newCreationYear = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.print("Enter the new superpower: ");
+                        String newSuperpower = scanner.nextLine();
+                        System.out.print("Enter the new strength [0-100]: ");
+                        int newStrength = scanner.nextInt();
+                        // Collect and update other superhero information as needed
+
+                        // Update the superhero's information
+                        superheroToEdit.setName(newName);
+                        superheroToEdit.setSuperHeroName(newAlias);
+                        superheroToEdit.setIsHuman(newIsHuman); // Assuming you have a newIsHuman variable
+                        superheroToEdit.setCreationYear(newCreationYear); // Assuming you have a newCreationYear variable
+                        superheroToEdit.setSuperpower(newSuperpower);
+                        superheroToEdit.setStrength(newStrength);
+                        // Update other superhero properties as needed
+
+                        System.out.println("Superhero updated successfully.");
+                    }
+                    break;
+                }
 
                 case 9 -> {
                     // exit program
@@ -81,7 +129,6 @@ public class UserInterface {
                     System.exit(0);
                 }
                 default -> System.out.println("Invalid choice. Try again.");
-
             }
         }
     }

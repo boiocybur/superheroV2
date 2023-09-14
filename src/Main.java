@@ -6,7 +6,7 @@ public class Main {
         Database database = new Database();
         Controller controller = new Controller(database);
 
-        // Opret UserInterface og start brugerdialogen
+        // Creates and starts userInterface
         UserInterface userInterface = new UserInterface(scanner, database, controller);
         userInterface.start();
     }
