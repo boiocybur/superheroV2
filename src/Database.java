@@ -65,4 +65,17 @@ public class Database {
                 superhero.getCreationYear() >= 0 &&
                 superhero.getStrength() >= 0;
     }
+    public void editSuperhero(String nameToEdit, Superhero editedSuperhero) {
+        for (int i = 0; i < superheroes.size(); i++) {
+            Superhero superhero = superheroes.get(i);
+            if (superhero.getName().equalsIgnoreCase(nameToEdit)) {
+                // Find superhero with matching name og update
+                superheroes.set(i, editedSuperhero);
+                System.out.println("Superhero updated successfully.");
+                return; // exits when
+            }
+        }
+        //if superhero is not found in database
+        System.out.println("Superhero not found.");
+    }
 }
