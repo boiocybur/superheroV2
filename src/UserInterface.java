@@ -107,6 +107,7 @@ public class UserInterface {
 
                             System.out.println("Current details of the superhero:");
                             database.printHeroDetails(superheroToEdit);
+                            scanner.nextLine();
 
                             System.out.print("Enter the new name: ");
                             String newName = scanner.nextLine();
