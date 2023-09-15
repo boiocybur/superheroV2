@@ -66,8 +66,4 @@ public class Superhero {
     public String getSuperpower() {
         return superpower;
     }
-
-    public boolean isEmpty() {
-        return false;
-    }
 }

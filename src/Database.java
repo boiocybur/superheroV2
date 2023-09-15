@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Database {
-    private ArrayList<Superhero> superheroes = new ArrayList<>();
+    private final ArrayList<Superhero> superheroes = new ArrayList<>();
 
     public void addSuperhero(Superhero superhero) throws IllegalArgumentException {
         if (isValidSuperhero(superhero)) {
@@ -18,7 +18,6 @@ public class Database {
     public int getNumberOfSuperheroes() {
         return superheroes.size();
     }
-
     public ArrayList<Superhero> searchSuperhero(String searchCriteria) {
         ArrayList<Superhero> searchResult = new ArrayList<>();
 
@@ -33,19 +32,6 @@ public class Database {
         return searchResult;
     }
 
-    public void displayAllSuperheroes() {
-        ArrayList<Superhero> superheroes = getAllSuperheroes();
-        if (superheroes.isEmpty()) {
-            System.out.println("There are no superheroes in the database.");
-        } else {
-            System.out.println("Superheroes in database:");
-            for (Superhero hero : superheroes) {
-                printHeroDetails(hero);
-                System.out.println("----------------------");
-            }
-        }
-    }
-
     public void printHeroDetails(Superhero hero) {
         System.out.println("----------------------");
         System.out.println("Name: " + hero.getName());
@@ -57,11 +43,12 @@ public class Database {
         System.out.println("----------------------");
     }
 
-    private boolean isValidSuperhero(Superhero superhero) {
+    public boolean isValidSuperhero(Superhero superhero) {
         return superhero != null &&
                 superhero.getName() != null && !superhero.getName().isEmpty() &&
                 superhero.getSuperHeroName() != null && !superhero.getSuperHeroName().isEmpty() &&
                 superhero.getSuperpower() != null && !superhero.getSuperpower().isEmpty() &&
+                superhero.isHuman() &&
                 superhero.getCreationYear() >= 0 &&
                 superhero.getStrength() >= 0;
     }
@@ -89,5 +76,4 @@ public class Database {
             System.out.println("Superhero not found.");
         }
     }
-
 }

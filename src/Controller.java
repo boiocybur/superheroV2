@@ -1,9 +1,10 @@
 public class Controller {
-    private Database db;
+    private final Database db;
 
     public Controller(Database db) {
         this.db = db;
     }
+
 
     public void addSuperheroToDatabase(String name, String superHeroName, boolean isHuman, int creationYear, String superpower, int strength) {
         try {
@@ -11,9 +12,9 @@ public class Controller {
             db.addSuperhero(superhero);
             System.out.println("Superhero added to the database.");
         } catch (IllegalArgumentException e) {
-            System.out.println("Invalid input. Please check the provided data.");
+            System.out.println("Invalid input. No numbers or special characters in names");
         } catch (Exception e) {
-            System.out.println("An error occurred while adding the superhero: " + e.getMessage());
+            System.out.println("An error occurred while adding the superhero: ");
         }
     }
 }
