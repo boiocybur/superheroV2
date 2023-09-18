@@ -100,7 +100,7 @@ public class DatabaseTest {
         assertFalse(database.isValidSuperhero(invalidSuperhero3));
 
         // Test an invalid superhero with strength out of range
-        Superhero invalidSuperhero4 = new Superhero("Tony Stark", "Iron Man", true, 1963, "Technology", 90);
+        Superhero invalidSuperhero4 = new Superhero("Tony Stark", "Iron Man", true, 1963, "Technology", 110);
         assertFalse(database.isValidSuperhero(invalidSuperhero4));
     }
 
