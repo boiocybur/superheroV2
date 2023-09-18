@@ -3,6 +3,13 @@ import java.util.ArrayList;
 public class Database {
     private final ArrayList<Superhero> superheroes = new ArrayList<>();
 
+    public Database() {
+        // Add superheroes to the initial list
+        superheroes.add(new Superhero("Bruce Wayne", "Batman", false, 1939, "Intelligence, Martial Arts", 20));
+        superheroes.add(new Superhero("Clark Kent", "Superman", true, 1938, "Super Strength, Flight", 100));
+        superheroes.add(new Superhero("Diana Prince", "Wonder Woman", true, 1941, "Super Strength, Wisdom", 90));
+    }
+
     public void addSuperhero(Superhero superhero) throws IllegalArgumentException {
         if (isValidSuperhero(superhero)) {
             superheroes.add(superhero);
@@ -48,9 +55,8 @@ public class Database {
                 superhero.getName() != null && !superhero.getName().isEmpty() &&
                 superhero.getSuperHeroName() != null && !superhero.getSuperHeroName().isEmpty() &&
                 superhero.getSuperpower() != null && !superhero.getSuperpower().isEmpty() &&
-                superhero.isHuman() &&
                 superhero.getCreationYear() >= 0 &&
-                superhero.getStrength() >= 0;
+                superhero.getStrength() >= 0 && superhero.getStrength() <= 100;
     }
 
     public void editSuperhero(String nameToEdit, Superhero superheroToEdit) {

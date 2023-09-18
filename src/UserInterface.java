@@ -36,8 +36,10 @@ public class UserInterface {
                         String name = scanner.nextLine();
                         System.out.print("Alias of superhero: ");
                         String superHeroName = scanner.nextLine();
-                        boolean isHuman;
-                        while (true) {
+                        boolean isHuman = false;
+                        boolean validInput = false;
+
+                        while (!validInput) {
                             System.out.print("Is hero human? (ja/nej): ");
                             String isHumanInput = scanner.nextLine().trim().toLowerCase();
 
