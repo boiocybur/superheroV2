@@ -1,14 +1,8 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Database {
     private final ArrayList<Superhero> superheroes = new ArrayList<>();
-
-    public Database() {
-        // Add superheroes to the initial list
-        superheroes.add(new Superhero("Bruce Wayne", "Batman", false, 1939, "Intelligence, Martial Arts", 20));
-        superheroes.add(new Superhero("Clark Kent", "Superman", true, 1938, "Super Strength, Flight", 100));
-        superheroes.add(new Superhero("Diana Prince", "Wonder Woman", true, 1941, "Super Strength, Wisdom", 90));
-    }
 
     public void addSuperhero(Superhero superhero) throws IllegalArgumentException {
         if (isValidSuperhero(superhero)) {
@@ -84,11 +78,15 @@ public class Database {
         }
     }
 
-    public void removeSuperhero(Superhero superhero) {
-        // Check if the superhero is in the list
-        if (superheroes.contains(superhero)) {
-            // If it's present, remove it from the list
-            superheroes.remove(superhero);
+    public void removeSuperhero(String superheroName) {
+        ArrayList<Superhero> superheroesToRemove = new ArrayList<>();
+        for (Superhero superheroInDatabase : superheroes) {
+            if (superheroInDatabase.getSuperHeroName().trim().equalsIgnoreCase(superheroName)) {
+                superheroesToRemove.add(superheroInDatabase);
+            }
         }
+        superheroes.removeAll(superheroesToRemove);
     }
+
 }
+

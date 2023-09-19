@@ -177,17 +177,15 @@ public class UserInterface {
                     }
                     case 5 -> {
                         System.out.println("Enter the name of the superhero you wish to remove: ");
-                        String removeSuperheroName = scanner.nextLine();
+                        String removeSuperheroName = scanner.nextLine().trim().toLowerCase(); // Convert input to lowercase
 
-                        // Create a superhero object with the provided name
-                        Superhero superheroToRemove = new Superhero(removeSuperheroName, "", false, 0, "", 0);
+                        // Call the removeSuperhero method to remove the superhero by name
+                        database.removeSuperhero(removeSuperheroName);
 
-                        // Call the removeSuperhero method to remove the superhero
-                        database.removeSuperhero(superheroToRemove);
-
-                        // Check if the superhero was successfully removed
-                        if (!database.getAllSuperheroes().contains(superheroToRemove)) {
-                            System.out.println("Superhero removed successfully.");
+                        // Check if any superheroes were removed
+                        if (!database.getAllSuperheroes().stream().anyMatch(superhero ->
+                                superhero.getSuperHeroName().trim().equalsIgnoreCase(removeSuperheroName))) {
+                            System.out.println("Superhero(s) removed successfully.");
                         } else {
                             System.out.println("Superhero not found in the database.");
                         }

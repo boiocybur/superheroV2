@@ -15,9 +15,10 @@ class DatabaseTest {
     }
 
     @AfterEach
-    void tearDown(){
+    void tearDown() {
         database = null;
     }
+
     @Test
     void testAddSuperhero() {
         Superhero superhero = new Superhero("Bruce Wayne", "Batman", true, 1939, "Intelligence", 90);
@@ -82,12 +83,9 @@ class DatabaseTest {
 
         Superhero superhero1 = new Superhero("Hank Pym", "Ant man", true, 1969, "Size Change suit", 66);
         database.addSuperhero(superhero1);
-ArrayList<Superhero> superheroToRemove = database.searchSuperhero("Ant");
 
-assertEquals(1, superheroToRemove.size());
-assertTrue(superheroToRemove.contains(superhero1));
-
-        database.removeSuperhero(superhero1);
+        // Remove superhero1 directly
+        database.removeSuperhero(superhero1.getSuperHeroName());
 
         assertFalse(database.getAllSuperheroes().contains(superhero1));
     }
