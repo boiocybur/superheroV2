@@ -25,6 +25,7 @@ public class Database {
     public int getNumberOfSuperheroes() {
         return superheroes.size();
     }
+
     public ArrayList<Superhero> searchSuperhero(String searchCriteria) {
         ArrayList<Superhero> searchResult = new ArrayList<>();
 
@@ -80,6 +81,14 @@ public class Database {
         if (!superheroFound) {
             // If no matching superhero is found in the database
             System.out.println("Superhero not found.");
+        }
+    }
+
+    public void removeSuperhero(Superhero superhero) {
+        // Check if the superhero is in the list
+        if (superheroes.contains(superhero)) {
+            // If it's present, remove it from the list
+            superheroes.remove(superhero);
         }
     }
 }

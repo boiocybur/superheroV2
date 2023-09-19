@@ -22,6 +22,7 @@ public class UserInterface {
                     2. Show heroes
                     3. Find heroes
                     4. Edit heroes
+                    5. Delete heroes
                     9. Exit
                     """);
 
@@ -174,7 +175,23 @@ public class UserInterface {
                             }
                         }
                     }
+                    case 5 -> {
+                        System.out.println("Enter the name of the superhero you wish to remove: ");
+                        String removeSuperheroName = scanner.nextLine();
 
+                        // Create a superhero object with the provided name
+                        Superhero superheroToRemove = new Superhero(removeSuperheroName, "", false, 0, "", 0);
+
+                        // Call the removeSuperhero method to remove the superhero
+                        database.removeSuperhero(superheroToRemove);
+
+                        // Check if the superhero was successfully removed
+                        if (!database.getAllSuperheroes().contains(superheroToRemove)) {
+                            System.out.println("Superhero removed successfully.");
+                        } else {
+                            System.out.println("Superhero not found in the database.");
+                        }
+                    }
                     case 9 -> {
                         // exit program
                         System.out.println("Exiting program.");
