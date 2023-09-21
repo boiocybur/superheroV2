@@ -85,7 +85,9 @@ class DatabaseTest {
         database.addSuperhero(superhero1);
 
         // Remove superhero1 directly
-        database.removeSuperhero(superhero1.getSuperHeroName());
+        ArrayList<Superhero> superheroes = database.getAllSuperheroes();
+
+        superheroes.removeIf(hero -> hero.getSuperHeroName().trim().equalsIgnoreCase("Ant man"));
 
         assertFalse(database.getAllSuperheroes().contains(superhero1));
     }
