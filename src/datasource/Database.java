@@ -46,7 +46,6 @@ public class Database {
         System.out.println("----------------------");
     }*/
     public void printHeroDetails(Superhero hero){
-        for(Superhero superhero : superheroes){
             hero.getName();
             hero.getSuperHeroName();
             hero.isHuman();
@@ -54,7 +53,6 @@ public class Database {
             hero.getSuperpower();
             hero.getStrength();
         }
-    }
 
     public boolean isValidSuperhero(Superhero superhero) {
         return superhero != null &&

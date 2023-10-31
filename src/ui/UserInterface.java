@@ -1,4 +1,5 @@
 package ui;
+import datasource.Superhero;
 import domainmodel.Controller;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -44,14 +45,14 @@ public class UserInterface {
                             System.out.print("Is hero human? (ja/nej): ");
                             String isHumanInput = scanner.nextLine().trim().toLowerCase();
 
-                            if (isHumanInput.equals("ja")) {
+                            if (isHumanInput.equals("yes")) {
                                 isHuman = true;
                                 break;
-                            } else if (isHumanInput.equals("nej")) {
+                            } else if (isHumanInput.equals("no")) {
                                 isHuman = false;
                                 break;
                             } else {
-                                System.out.println("Invalid input. Please enter 'ja' or 'nej'.");
+                                System.out.println("Invalid input. Please enter 'yes' or 'no'.");
                             }
                         }
                         System.out.print("Creation year: ");
@@ -75,7 +76,7 @@ public class UserInterface {
                             controller.getAllSuperheroes();
                             System.out.println("Superheroes in the database:");
                             for (datasource.Superhero superhero : controller.getAllSuperheroes()){
-                                printHeroDetails(superhero);
+                                controller.printHeroDetails(superhero);
                             }
 
                             
@@ -90,15 +91,52 @@ public class UserInterface {
                         if (searchResult.isEmpty()) {
                             System.out.println("No superheroes matching the search criteria found.");
                         } else {
-                            System.out.println("Superheroes found:");
-                            for (datasource.Superhero superhero : searchResult) {
-                                printHeroDetails(superhero);
+                            for (Superhero superhero : searchResult) {
+
+                                System.out.println("Superheroes found:");
+                                System.out.println(superhero);
+                                //controller.printHeroDetails(superhero);
+
 
                             }
 
                         }
                     }
-                    case 4 -> {
+                   /* public void editSuperhero() {
+                        System.out.println("Indtast søgekriterium for person");
+                        String userInput = scanner.nextLine();
+                        Superhero superHeroToEdit = null;
+
+                        ArrayList<Superhero> searchResult = cl.getSearchForMultipleSuperheroes(userInput);
+                        for (Superhero s: searchResult
+                        ) {
+                            System.out.println(s);
+                        }
+
+                        if (searchResult.isEmpty()) {
+                            System.out.println("Der findes ingen personer der opfylder søgekriterium");
+
+                        } else {
+                            System.out.println("Vælg person");
+                            int count = 0;
+                            for (Superhero s : searchResult) {
+                                System.out.println((1+count++) + ". " +
+                                        s.getName() + " " +
+                                        s.getRealName() + " " +
+                                        s.getSuperPower() + " " +
+                                        s.getYearCreated() + " " +
+                                        s.getIsHuman() + " " +
+                                        s.getStrength()
+                                );
+                            }
+                            int superheroChoice = scanner.nextInt();
+                            scanner.nextLine();
+                            superHeroToEdit = searchResult.get(superheroChoice -1);
+                        }*/
+
+
+
+                    /*case 4 -> {
                         System.out.println("Enter a part of the name or superhero name of the superhero you wish to edit: ");
                         String partialSearchCriteria = scanner.nextLine();
 
@@ -175,8 +213,8 @@ public class UserInterface {
                             } else {
                                 System.out.println("Invalid selection. Please choose a superhero from the list.");
                             }
-                        }
-                    }
+                        }*/
+
                     case 5 -> {
                         System.out.println("Enter the name of the superhero you wish to remove: ");
                         String removeSuperheroName = scanner.nextLine().trim().toLowerCase(); // Convert input to lowercase
@@ -187,9 +225,9 @@ public class UserInterface {
                         // Check if any superheroes were removed
                         if (controller.getAllSuperheroes().stream().noneMatch(superhero ->
                                 superhero.getSuperHeroName().trim().equalsIgnoreCase(removeSuperheroName))) {
-                            System.out.println("datasource.Superhero(s) removed successfully.");
+                            System.out.println("Superhero(s) removed successfully.");
                         } else {
-                            System.out.println("datasource.Superhero not found in the database.");
+                            System.out.println("Superhero not found in the database.");
                         }
                     }
                     case 9 -> {
@@ -213,7 +251,6 @@ public class UserInterface {
         return name.matches("^[a-zA-Z\\s-]*$");
     }
     private void printHeroDetails(datasource.Superhero hero){
-        System.out.println("----------------------");
         System.out.println("Name: " + hero.getName());
         System.out.println("datasource.Superhero name: " + hero.getSuperHeroName());
         System.out.println("Is a human: " + (hero.isHuman() ? "Yes" : "No"));
