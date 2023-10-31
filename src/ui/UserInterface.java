@@ -1,15 +1,15 @@
+package ui;
+import domainmodel.Controller;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInterface {
     private final Scanner scanner;
-    private final Database database;
     private final Controller controller;
 
-    public UserInterface(Scanner scanner, Database database, Controller controller) {
+    public UserInterface(Scanner scanner, Controller controller) {
         this.scanner = scanner;
-        this.database = database;
         this.controller = controller;
     }
 
@@ -17,7 +17,7 @@ public class UserInterface {
         while (true) {
             // Vis menu
             System.out.println("""
-                    Welcome to Superhero database.
+                    Welcome to the Superhero database.
                     1. Create hero
                     2. Show heroes
                     3. Find heroes
@@ -69,14 +69,16 @@ public class UserInterface {
                         controller.addSuperheroToDatabase(name, superHeroName, isHuman, creationYear, superpower, strength);
                     }
                     case 2 -> {
-                        if (database.getNumberOfSuperheroes() == 0) {
+                        if (controller.getNumberOfSuperheroes() == 0) {
                             System.out.println("There is no superheroes in the database.");
                         } else {
-                            ArrayList<Superhero> heroes = database.getAllSuperheroes();
+                            controller.getAllSuperheroes();
                             System.out.println("Superheroes in the database:");
-                            for (Superhero hero : heroes) {
-                                database.printHeroDetails(hero);
+                            for (datasource.Superhero superhero : controller.getAllSuperheroes()){
+                                printHeroDetails(superhero);
                             }
+
+                            
                         }
                     }
                     case 3 -> {
@@ -89,8 +91,8 @@ public class UserInterface {
                             System.out.println("No superheroes matching the search criteria found.");
                         } else {
                             System.out.println("Superheroes found:");
-                            for (Superhero superhero : searchResult) {
-                                database.printHeroDetails(superhero);
+                            for (datasource.Superhero superhero : searchResult) {
+                                printHeroDetails(superhero);
 
                             }
 
@@ -103,7 +105,7 @@ public class UserInterface {
                         ArrayList<Superhero> matchingSuperheroes = new ArrayList<>();
 
                         // Search for superheroes with a partial match in either name or superhero name
-                        for (Superhero hero : database.getAllSuperheroes()) {
+                        for (Superhero hero : controller.getAllSuperheroes()) {
                             if (hero.getName().toLowerCase().contains(partialSearchCriteria.toLowerCase()) ||
                                     hero.getSuperHeroName().toLowerCase().contains(partialSearchCriteria.toLowerCase())) {
                                 matchingSuperheroes.add(hero);
@@ -127,7 +129,7 @@ public class UserInterface {
                                 Superhero superheroToEdit = matchingSuperheroes.get(selection - 1);
 
                                 System.out.println("Current details of the superhero:");
-                                database.printHeroDetails(superheroToEdit);
+                                printHeroDetails(superheroToEdit);
                                 scanner.nextLine();
 
                                 System.out.print("Enter the new name (press Enter to keep the current name): ");
@@ -169,7 +171,7 @@ public class UserInterface {
                                     superheroToEdit.setStrength(newStrength);
                                 }
 
-                                database.editSuperhero(partialSearchCriteria, superheroToEdit);
+                                controller.editSuperhero(partialSearchCriteria, superheroToEdit);
                             } else {
                                 System.out.println("Invalid selection. Please choose a superhero from the list.");
                             }
@@ -180,14 +182,14 @@ public class UserInterface {
                         String removeSuperheroName = scanner.nextLine().trim().toLowerCase(); // Convert input to lowercase
 
                         // Call the removeSuperhero method to remove the superhero by name
-                        database.removeSuperhero(removeSuperheroName);
+                        controller.removeSuperhero(removeSuperheroName);
 
                         // Check if any superheroes were removed
-                        if (!database.getAllSuperheroes().stream().anyMatch(superhero ->
+                        if (controller.getAllSuperheroes().stream().noneMatch(superhero ->
                                 superhero.getSuperHeroName().trim().equalsIgnoreCase(removeSuperheroName))) {
-                            System.out.println("Superhero(s) removed successfully.");
+                            System.out.println("datasource.Superhero(s) removed successfully.");
                         } else {
-                            System.out.println("Superhero not found in the database.");
+                            System.out.println("datasource.Superhero not found in the database.");
                         }
                     }
                     case 9 -> {
@@ -200,7 +202,6 @@ public class UserInterface {
             }catch(InputMismatchException ime){
                 System.out.println("Invalid input. Please enter a valid integer.");
                 scanner.nextLine(); // Consume the invalid input
-                continue; // Continue the loop to allow the user to enter valid input
             }
             catch(Exception e){
                 throw new RuntimeException(e);
@@ -211,5 +212,14 @@ public class UserInterface {
     private boolean isValidName(String name) {
         return name.matches("^[a-zA-Z\\s-]*$");
     }
-
+    private void printHeroDetails(datasource.Superhero hero){
+        System.out.println("----------------------");
+        System.out.println("Name: " + hero.getName());
+        System.out.println("datasource.Superhero name: " + hero.getSuperHeroName());
+        System.out.println("Is a human: " + (hero.isHuman() ? "Yes" : "No"));
+        System.out.println("Creation year: " + hero.getCreationYear());
+        System.out.println("Superpower: " + hero.getSuperpower());
+        System.out.println("Strength: " + hero.getStrength());
+        System.out.println("----------------------");
+    }
 }

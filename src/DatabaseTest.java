@@ -1,5 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import datasource.Database;
+import datasource.Superhero;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -82,7 +84,9 @@ class DatabaseTest {
         Database database = new Database();
 
         Superhero superhero1 = new Superhero("Hank Pym", "Ant man", true, 1969, "Size Change suit", 66);
+        Superhero superhero2 = new Superhero("HSodym", "Sujoman", true, 1969, "Size Change suit", 66);
         database.addSuperhero(superhero1);
+        database.addSuperhero(superhero2);
 
         // Remove superhero1 directly
         ArrayList<Superhero> superheroes = database.getAllSuperheroes();

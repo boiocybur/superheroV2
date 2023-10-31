@@ -1,5 +1,6 @@
+package datasource;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Database {
     private final ArrayList<Superhero> superheroes = new ArrayList<>();
@@ -34,15 +35,25 @@ public class Database {
         return searchResult;
     }
 
-    public void printHeroDetails(Superhero hero) {
+    /*public void printHeroDetails(Superhero hero) {
         System.out.println("----------------------");
         System.out.println("Name: " + hero.getName());
-        System.out.println("Superhero name: " + hero.getSuperHeroName());
+        System.out.println("datasource.Superhero name: " + hero.getSuperHeroName());
         System.out.println("Is a human: " + (hero.isHuman() ? "Yes" : "No"));
         System.out.println("Creation year: " + hero.getCreationYear());
         System.out.println("Superpower: " + hero.getSuperpower());
         System.out.println("Strength: " + hero.getStrength());
         System.out.println("----------------------");
+    }*/
+    public void printHeroDetails(Superhero hero){
+        for(Superhero superhero : superheroes){
+            hero.getName();
+            hero.getSuperHeroName();
+            hero.isHuman();
+            hero.getCreationYear();
+            hero.getSuperpower();
+            hero.getStrength();
+        }
     }
 
     public boolean isValidSuperhero(Superhero superhero) {
@@ -62,7 +73,7 @@ public class Database {
             if (superhero.getName().toLowerCase().contains(nameToEdit.toLowerCase())) {
                 // Find superhero with a name containing the search criteria and update
                 superheroes.set(i, superheroToEdit);
-                System.out.println("Superhero updated successfully.");
+                System.out.println("datasource.Superhero updated successfully.");
 
                 // Print the updated details
                 System.out.println("Updated details of the superhero:");
@@ -74,7 +85,7 @@ public class Database {
 
         if (!superheroFound) {
             // If no matching superhero is found in the database
-            System.out.println("Superhero not found.");
+            System.out.println("datasource.Superhero not found.");
         }
     }
 
