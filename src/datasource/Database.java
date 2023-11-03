@@ -5,12 +5,23 @@ import java.util.ArrayList;
 public class Database {
     private final ArrayList<Superhero> superheroes = new ArrayList<>();
 
-    public void addSuperhero(Superhero superhero) throws IllegalArgumentException {
-        if (isValidSuperhero(superhero)) {
-            superheroes.add(superhero);
-        } else {
-            throw new IllegalArgumentException("Invalid superhero data.");
+
+    public void addSuperhero(String name, String superHeroName, boolean isHuman, int creationYear, String superpower, int strength) throws IllegalArgumentException {
+        if (!isValidInput(name, superHeroName, creationYear, superpower, strength)) {
+            throw new IllegalArgumentException("Invalid input. Please check the superhero details.");
         }
+
+        Superhero superhero = new Superhero(name, superHeroName, isHuman, creationYear, superpower, strength);
+        superheroes.add(superhero);
+        System.out.println("Superhero added to the database.");
+    }
+
+    private boolean isValidInput(String name, String superHeroName, int creationYear, String superpower, int strength) {
+        return name != null && !name.isEmpty() &&
+                superHeroName != null && !superHeroName.isEmpty() &&
+                superpower != null && !superpower.isEmpty() &&
+                creationYear >= 0 &&
+                strength >= 0 && strength <= 100;
     }
 
     public ArrayList<Superhero> getAllSuperheroes() {
@@ -26,7 +37,7 @@ public class Database {
 
         if (searchCriteria != null) {  // Add error handling for null input
             for (Superhero superhero : superheroes) {
-                if (superhero.getName().contains(searchCriteria) || superhero.getSuperHeroName().contains(searchCriteria)) {
+                if (superhero.getName().toLowerCase().contains(searchCriteria) || superhero.getSuperHeroName().toLowerCase().contains(searchCriteria)) {
                     searchResult.add(superhero);
                 }
             }
@@ -35,34 +46,23 @@ public class Database {
         return searchResult;
     }
 
-    /*public void printHeroDetails(Superhero hero) {
-        System.out.println("----------------------");
+    public void loadList(){
+        ArrayList<Superhero> heroes = superheroes;
+
+        for (Superhero hero : heroes) {
+            printHeroDetails(hero);
+        }
+
+    }
+    public void printHeroDetails(Superhero hero){
         System.out.println("Name: " + hero.getName());
-        System.out.println("datasource.Superhero name: " + hero.getSuperHeroName());
+        System.out.println("Superhero name: " + hero.getSuperHeroName());
         System.out.println("Is a human: " + (hero.isHuman() ? "Yes" : "No"));
         System.out.println("Creation year: " + hero.getCreationYear());
         System.out.println("Superpower: " + hero.getSuperpower());
         System.out.println("Strength: " + hero.getStrength());
         System.out.println("----------------------");
-    }*/
-    public void printHeroDetails(Superhero hero){
-            hero.getName();
-            hero.getSuperHeroName();
-            hero.isHuman();
-            hero.getCreationYear();
-            hero.getSuperpower();
-            hero.getStrength();
         }
-
-    public boolean isValidSuperhero(Superhero superhero) {
-        return superhero != null &&
-                superhero.getName() != null && !superhero.getName().isEmpty() &&
-                superhero.getSuperHeroName() != null && !superhero.getSuperHeroName().isEmpty() &&
-                superhero.getSuperpower() != null && !superhero.getSuperpower().isEmpty() &&
-                superhero.getCreationYear() >= 0 &&
-                superhero.getStrength() >= 0 && superhero.getStrength() <= 100;
-    }
-
     public void editSuperhero(String nameToEdit, Superhero superheroToEdit) {
         boolean superheroFound = false;
 
@@ -71,7 +71,7 @@ public class Database {
             if (superhero.getName().toLowerCase().contains(nameToEdit.toLowerCase())) {
                 // Find superhero with a name containing the search criteria and update
                 superheroes.set(i, superheroToEdit);
-                System.out.println("datasource.Superhero updated successfully.");
+                System.out.println("Superhero updated successfully.");
 
                 // Print the updated details
                 System.out.println("Updated details of the superhero:");
@@ -96,6 +96,5 @@ public class Database {
         }
         superheroes.removeAll(superheroesToRemove);
     }
-
 }
 

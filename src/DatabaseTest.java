@@ -2,8 +2,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import datasource.Database;
 import datasource.Superhero;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
@@ -12,7 +12,6 @@ class DatabaseTest {
 
     @BeforeEach
     void setUp() {
-        // Initialize new database before each test
         database = new Database();
     }
 
@@ -23,76 +22,72 @@ class DatabaseTest {
 
     @Test
     void testAddSuperhero() {
-        Superhero superhero = new Superhero("Bruce Wayne", "Batman", true, 1939, "Intelligence", 90);
+        Superhero validSuperhero = new Superhero("Bruce Wayne", "Batman", true, 1939, "Intelligence", 90);
 
         // Test adding a valid superhero
-        assertDoesNotThrow(() -> database.addSuperhero(superhero));
+        assertDoesNotThrow(() -> database.addSuperhero("Bruce Wayne", "Batman", true, 1939, "Intelligence", 90));
 
         // Test adding a superhero with invalid data
         Superhero invalidSuperhero = new Superhero("", "", true, -1, "", -1);
-        assertThrows(IllegalArgumentException.class, () -> database.addSuperhero(invalidSuperhero));
+        assertThrows(IllegalArgumentException.class, () -> database.addSuperhero("Bruce Wayne", "Batman", true, 1939, "Intelligence", 90));
     }
 
     @Test
-    void testEmptySuperheroList() {
-        // Create a new database
-        Database database = new Database();
+    void testSearchSuperhero() {
+        Superhero superhero1 = new Superhero("Bruce Wayne", "Batman", true, 1939, "Intelligence", 90);
+        Superhero superhero2 = new Superhero("Clark Kent", "Superman", true, 1938, "Flight", 95);
 
-        // Perform a search for a non-existent hero
-        ArrayList<Superhero> searchResult = database.searchSuperhero("Flash");
 
-        // Verify that the search result is an empty list
-        assertTrue(searchResult.isEmpty());
+        //database.addSuperhero(superhero1);
+
+        database.addSuperhero("Bruce Wayne", "Batman", true, 1939, "Money", 3);
+        database.addSuperhero("Clark Kent", "Superman", true, 1938, "Flight", 95);
+
+        // Test searching for an existing superhero
+        ArrayList<Superhero> searchResult1 = database.searchSuperhero("Batman");
+        assertEquals(1, searchResult1.size());
+        assertEquals(superhero1, searchResult1.get(0));
+
+        // Test searching for a non-existing superhero
+        ArrayList<Superhero> searchResult2 = database.searchSuperhero("Flash");
+        assertTrue(searchResult2.isEmpty());
+
+        // Test searching for multiple superheroes
+        ArrayList<Superhero> searchResult3 = database.searchSuperhero("man");
+        assertEquals(2, searchResult3.size());
     }
 
     @Test
-    void testSearchSingleSuperhero() {
+    void testEditSuperhero() {
+        Superhero superhero1 = new Superhero("Bruce Wayne", "Batman", true, 1939, "Intelligence", 90);
+        Superhero updatedSuperhero = new Superhero("Diana Prince", "Wonder Woman", false, 1941, "Super strength", 88);
 
-        Database database = new Database();
+                database.addSuperhero("Bruce Wayne", "Batman", true, 1939, "Intelligence", 90);
 
-        // Add Iron Man to the database
-        Superhero superhero1 = new Superhero("Tony Stark", "Iron Man", true, 1939, "Intelligence", 90);
-        database.addSuperhero(superhero1);
+        // Test editing an existing superhero
+        database.editSuperhero("Batman", updatedSuperhero);
+        Superhero editedSuperhero = database.getAllSuperheroes().get(0);
+        assertEquals(updatedSuperhero, editedSuperhero);
 
-        // Search for Iron Man
-        ArrayList<Superhero> searchResult = database.searchSuperhero("Iron Man");
-        assertEquals(1, searchResult.size());
-        assertEquals(superhero1, searchResult.get(0));
-    }
-
-    @Test
-    void testSearchMultipleSuperheroes() {
-        Database database = new Database();
-
-        // Add Batman, Superman, and Wonder Woman to the database
-        Superhero superhero1 = new Superhero("Clark Kent", "Ultraman", false, 1938, "Flight", 95);
-        Superhero superhero2 = new Superhero("Diana Prince", "Ultra Girl", false, 1941, "Super strength", 88);
-
-        database.addSuperhero(superhero1);
-        database.addSuperhero(superhero2);
-
-        // Search for multiple superheroes
-        ArrayList<Superhero> searchResult = database.searchSuperhero("tra");
-        assertEquals(2, searchResult.size());
-
-        assertTrue(searchResult.contains(superhero1));
-        assertTrue(searchResult.contains(superhero2));
+        // Test editing a non-existing superhero
+        database.editSuperhero("Flash", updatedSuperhero);
+        assertEquals(1, database.getNumberOfSuperheroes());
     }
 
     @Test
     void testRemoveSuperhero() {
-        Database database = new Database();
+        Superhero superhero1 = new Superhero("Bruce Wayne", "Batman", true, 1939, "Intelligence", 90);
+        Superhero superhero2 = new Superhero("Clark Kent", "Superman", true, 1938, "Flight", 95);
 
-        Superhero superhero1 = new Superhero("Hank Pym", "Ant man", true, 1969, "Size Change suit", 66);
-        Superhero superhero2 = new Superhero("HSodym", "Sujoman", true, 1969, "Size Change suit", 66);
-        database.addSuperhero(superhero1);
-        database.addSuperhero(superhero2);
+        database.addSuperhero("Bruce Wayne", "Batman", true, 1939, "Intelligence", 90);
+        database.addSuperhero("Clark Kent", "Superman", true, 1938, "Flight", 95);
 
-        // Remove superhero1 directly
-        ArrayList<Superhero> superheroes = database.getAllSuperheroes();
+        // Test removing an existing superhero
+        database.removeSuperhero("Batman");
+        assertEquals(1, database.getNumberOfSuperheroes());
 
-        superheroes.removeIf(hero -> hero.getSuperHeroName().trim().equalsIgnoreCase("Ant man"));
-
-        assertFalse(database.getAllSuperheroes().contains(superhero1));
+        // Test removing a non-existing superhero
+        database.removeSuperhero("Flash");
+        assertEquals(1, database.getNumberOfSuperheroes());
     }
 }

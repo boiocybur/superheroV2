@@ -73,13 +73,9 @@ public class UserInterface {
                         if (controller.getNumberOfSuperheroes() == 0) {
                             System.out.println("There is no superheroes in the database.");
                         } else {
-                            controller.getAllSuperheroes();
                             System.out.println("Superheroes in the database:");
-                            for (datasource.Superhero superhero : controller.getAllSuperheroes()){
-                                controller.printHeroDetails(superhero);
-                            }
+                            controller.loadList();
 
-                            
                         }
                     }
                     case 3 -> {
@@ -94,49 +90,15 @@ public class UserInterface {
                             for (Superhero superhero : searchResult) {
 
                                 System.out.println("Superheroes found:");
-                                System.out.println(superhero);
-                                //controller.printHeroDetails(superhero);
+                                controller.printHeroDetails(superhero);
 
 
                             }
 
                         }
                     }
-                   /* public void editSuperhero() {
-                        System.out.println("Indtast søgekriterium for person");
-                        String userInput = scanner.nextLine();
-                        Superhero superHeroToEdit = null;
 
-                        ArrayList<Superhero> searchResult = cl.getSearchForMultipleSuperheroes(userInput);
-                        for (Superhero s: searchResult
-                        ) {
-                            System.out.println(s);
-                        }
-
-                        if (searchResult.isEmpty()) {
-                            System.out.println("Der findes ingen personer der opfylder søgekriterium");
-
-                        } else {
-                            System.out.println("Vælg person");
-                            int count = 0;
-                            for (Superhero s : searchResult) {
-                                System.out.println((1+count++) + ". " +
-                                        s.getName() + " " +
-                                        s.getRealName() + " " +
-                                        s.getSuperPower() + " " +
-                                        s.getYearCreated() + " " +
-                                        s.getIsHuman() + " " +
-                                        s.getStrength()
-                                );
-                            }
-                            int superheroChoice = scanner.nextInt();
-                            scanner.nextLine();
-                            superHeroToEdit = searchResult.get(superheroChoice -1);
-                        }*/
-
-
-
-                    /*case 4 -> {
+                    case 4 -> {
                         System.out.println("Enter a part of the name or superhero name of the superhero you wish to edit: ");
                         String partialSearchCriteria = scanner.nextLine();
 
@@ -167,7 +129,7 @@ public class UserInterface {
                                 Superhero superheroToEdit = matchingSuperheroes.get(selection - 1);
 
                                 System.out.println("Current details of the superhero:");
-                                printHeroDetails(superheroToEdit);
+                                controller.printHeroDetails(superheroToEdit);
                                 scanner.nextLine();
 
                                 System.out.print("Enter the new name (press Enter to keep the current name): ");
@@ -213,39 +175,39 @@ public class UserInterface {
                             } else {
                                 System.out.println("Invalid selection. Please choose a superhero from the list.");
                             }
-                        }*/
-
-                    case 5 -> {
-                        System.out.println("Enter the name of the superhero you wish to remove: ");
-                        String removeSuperheroName = scanner.nextLine().trim().toLowerCase(); // Convert input to lowercase
-
-                        // Call the removeSuperhero method to remove the superhero by name
-                        controller.removeSuperhero(removeSuperheroName);
-
-                        // Check if any superheroes were removed
-                        if (controller.getAllSuperheroes().stream().noneMatch(superhero ->
-                                superhero.getSuperHeroName().trim().equalsIgnoreCase(removeSuperheroName))) {
-                            System.out.println("Superhero(s) removed successfully.");
-                        } else {
-                            System.out.println("Superhero not found in the database.");
                         }
                     }
-                    case 9 -> {
-                        // exit program
-                        System.out.println("Exiting program.");
-                        System.exit(0);
+                        case 5 -> {
+                            System.out.println("Enter the name of the superhero you wish to remove: ");
+                            String removeSuperheroName = scanner.nextLine().trim().toLowerCase(); // Convert input to lowercase
+
+                            // Call the removeSuperhero method to remove the superhero by name
+                            controller.removeSuperhero(removeSuperheroName);
+
+                            // Check if any superheroes were removed
+                            if (controller.getAllSuperheroes().stream().noneMatch(superhero ->
+                                    superhero.getSuperHeroName().trim().equalsIgnoreCase(removeSuperheroName))) {
+                                System.out.println("Superhero(s) removed successfully.");
+                            } else {
+                                System.out.println("Superhero not found in the database.");
+                            }
+                        }
+                        case 9 -> {
+                            // exit program
+                            System.out.println("Exiting program.");
+                            System.exit(0);
+                        }
+                        default -> System.out.println("Invalid choice. Try again.");
                     }
-                    default -> System.out.println("Invalid choice. Try again.");
+                }catch(InputMismatchException ime){
+                    System.out.println("Invalid input. Please enter a valid integer.");
+                    scanner.nextLine(); // Consume the invalid input
                 }
-            }catch(InputMismatchException ime){
-                System.out.println("Invalid input. Please enter a valid integer.");
-                scanner.nextLine(); // Consume the invalid input
-            }
             catch(Exception e){
-                throw new RuntimeException(e);
+                    throw new RuntimeException(e);
+                }
             }
         }
-    }
     // Check if the name contains only letters, spaces, and hyphens
     private boolean isValidName(String name) {
         return name.matches("^[a-zA-Z\\s-]*$");
