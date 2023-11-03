@@ -250,13 +250,4 @@ public class UserInterface {
     private boolean isValidName(String name) {
         return name.matches("^[a-zA-Z\\s-]*$");
     }
-    private void printHeroDetails(datasource.Superhero hero){
-        System.out.println("Name: " + hero.getName());
-        System.out.println("datasource.Superhero name: " + hero.getSuperHeroName());
-        System.out.println("Is a human: " + (hero.isHuman() ? "Yes" : "No"));
-        System.out.println("Creation year: " + hero.getCreationYear());
-        System.out.println("Superpower: " + hero.getSuperpower());
-        System.out.println("Strength: " + hero.getStrength());
-        System.out.println("----------------------");
-    }
 }
