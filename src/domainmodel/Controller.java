@@ -17,4 +17,52 @@ public class Controller {
     public void addSuperheroToDatabase(String name, String superHeroName, boolean isHuman, int creationYear, String superpower, int strength) {
       db.addSuperhero(name, superHeroName, isHuman, creationYear, superpower, strength);
     }
+
+    public int getNumberOfSuperheroes() {
+        return db.getNumberOfSuperheroes();
+    }
+
+    public ArrayList<Superhero> getAllSuperheroes() {
+        return db.getAllSuperheroes();
+    }
+
+    public ArrayList<Superhero> searchSuperhero(String searchResult) {
+        return db.searchSuperhero(searchResult);
+    }
+
+
+    public void removeSuperhero(String removeSuperheroName) {
+        db.removeSuperhero(removeSuperheroName);
+    }
+
+    public void editSuperhero(String partialSearchCriteria, Superhero superheroToEdit) {
+        db.editSuperhero(partialSearchCriteria, superheroToEdit);
+    }
+    public void printHeroDetails(datasource.Superhero hero){
+        this.db.printHeroDetails(hero);
+    }
+    public void load() throws FileNotFoundException {
+        db.load();
+    }
+    public void loadList(){
+        db.loadList();
+    }
+    public void save(){
+        db.save();
+    }
+    public void sortByName(){
+        db.sortByName();
+    }
+    public void sortBySuperheroName(){
+        db.sortBySuperheroName();
+    }
+    public void sortByIsHuman(){
+        db.sortByIsHuman();
+    }
+    public void sortByCreationYear(){
+        db.sortByCreationYear();
+    }
+    public void sortByStrength(){
+        db.sortByStrength();
+    }
 }
