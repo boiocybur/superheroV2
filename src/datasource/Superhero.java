@@ -68,4 +68,21 @@ public class Superhero {
     public String getSuperpower() {
         return superpower;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(name);
+        stringBuilder.append(",");
+        stringBuilder.append(superHeroName);
+        stringBuilder.append(",");
+        stringBuilder.append(isHuman);
+        stringBuilder.append(",");
+        stringBuilder.append(creationYear);
+        stringBuilder.append(",");
+        stringBuilder.append(superpower);
+        stringBuilder.append(",");
+        stringBuilder.append(strength);
+        return stringBuilder.toString();
+    }
 }

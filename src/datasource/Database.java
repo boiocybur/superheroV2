@@ -1,9 +1,13 @@
 package datasource;
 
+import file.Filehandler;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Database {
-    private final ArrayList<Superhero> superheroes = new ArrayList<>();
+    private ArrayList<Superhero> superheroes = new ArrayList<>();
+    private Filehandler file = new Filehandler();
 
 
     public void addSuperhero(String name, String superHeroName, boolean isHuman, int creationYear, String superpower, int strength) throws IllegalArgumentException {
@@ -95,6 +99,28 @@ public class Database {
             }
         }
         superheroes.removeAll(superheroesToRemove);
+    }
+    public void save(){
+        file.save(superheroes);
+
+    }
+    public void load() throws FileNotFoundException {
+        superheroes = file.load();
+    }
+    public void sortBySuperheroName(){
+        file.sortBySuperheroName();
+    }
+    public void sortByName(){
+        file.sortByName();
+    }
+    public void sortByCreationYear(){
+        file.sortByCreationYear();
+    }
+    public void sortByStrength(){
+        file.sortbyStrength();
+    }
+    public void sortByIsHuman(){
+        file.sortByIsHuman();
     }
 }
 

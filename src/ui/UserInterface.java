@@ -1,6 +1,7 @@
 package ui;
 import datasource.Superhero;
 import domainmodel.Controller;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -24,6 +25,9 @@ public class UserInterface {
                     3. Find heroes
                     4. Edit heroes
                     5. Delete heroes
+                    6. Load heroes
+                    7. Save heroes
+                    8. Sort heroes
                     9. Exit
                     """);
 
@@ -42,7 +46,7 @@ public class UserInterface {
                         boolean validInput = false;
 
                         while (!validInput) {
-                            System.out.print("Is hero human? (ja/nej): ");
+                            System.out.print("Is hero human? (yes/no): ");
                             String isHumanInput = scanner.nextLine().trim().toLowerCase();
 
                             if (isHumanInput.equals("yes")) {
@@ -82,9 +86,12 @@ public class UserInterface {
                         System.out.print("Enter search criteria (superhero name or real name): ");
                         String searchCriteria = scanner.nextLine();
 
-                        ArrayList<Superhero> searchResult = database.searchSuperhero(searchCriteria);
 
-                        if (searchResult.isEmpty()) {
+                        //controller.searchSuperhero(searchCriteria);
+                        ArrayList<Superhero> searchResult = controller.searchSuperhero(searchCriteria);
+
+
+                        if (searchCriteria.isEmpty()) {
                             System.out.println("No superheroes matching the search criteria found.");
                         } else {
                             for (Superhero superhero : searchResult) {
@@ -134,13 +141,13 @@ public class UserInterface {
 
                                 System.out.print("Enter the new name (press Enter to keep the current name): ");
                                 String newName = scanner.nextLine();
-                                if (!newName.isEmpty()) {
+                                if (!newName.trim().isEmpty()) {
                                     superheroToEdit.setName(newName);
                                 }
 
                                 System.out.print("Enter the new alias (press Enter to keep the current alias): ");
                                 String newAlias = scanner.nextLine();
-                                if (!newAlias.isEmpty()) {
+                                if (!newAlias.trim().isEmpty()) {
                                     superheroToEdit.setSuperHeroName(newAlias);
                                 }
 
@@ -160,7 +167,7 @@ public class UserInterface {
 
                                 System.out.print("Enter the new superpower (press Enter to keep the current superpower): ");
                                 String newSuperpower = scanner.nextLine();
-                                if (!newSuperpower.isEmpty()) {
+                                if (!newSuperpower.trim().isEmpty()) {
                                     superheroToEdit.setSuperpower(newSuperpower);
                                 }
 
@@ -191,6 +198,15 @@ public class UserInterface {
                             } else {
                                 System.out.println("Superhero not found in the database.");
                             }
+                        }
+                        case 6 -> {
+                            controller.load();
+                            System.out.println("Load successful");
+                        }
+                        case 7 -> controller.save();
+
+                        case 8 ->{
+
                         }
                         case 9 -> {
                             // exit program
