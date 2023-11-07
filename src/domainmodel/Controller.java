@@ -4,6 +4,7 @@ import datasource.Database;
 import datasource.Superhero;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Controller {
@@ -41,7 +42,7 @@ public class Controller {
     public void printHeroDetails(datasource.Superhero hero){
         this.db.printHeroDetails(hero);
     }
-    public void load() throws FileNotFoundException {
+    public void load() throws IOException {
         db.load();
     }
     public void loadList(){

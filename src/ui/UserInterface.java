@@ -203,10 +203,32 @@ public class UserInterface {
                             controller.load();
                             System.out.println("Load successful");
                         }
-                        case 7 -> controller.save();
-
+                        case 7 -> {
+                            controller.save();
+                            System.out.println("Save successful");
+                        }
                         case 8 ->{
-
+                            System.out.println("Please select sorting method");
+                            System.out.println("""
+                                    Available options:
+                                    1. Sort by name
+                                    2. Sort by superheroname
+                                    3. Sort by creation year
+                                    4. Sort by humanity
+                                    5. Sort by strength""");
+                            int sortingInput = scanner.nextInt();
+                            if(sortingInput == 1){
+                                controller.sortByName();
+                            }else if(sortingInput == 2){
+                                controller.sortBySuperheroName();
+                            }else if(sortingInput == 3){
+                                controller.sortByCreationYear();
+                            }else if(sortingInput == 4){
+                                controller.sortByIsHuman();
+                            }else if(sortingInput == 5){
+                                controller.sortByStrength();
+                            }
+                            controller.save();
                         }
                         case 9 -> {
                             // exit program

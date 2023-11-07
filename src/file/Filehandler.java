@@ -5,7 +5,9 @@ import datasource.Superhero;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -19,9 +21,9 @@ public class Filehandler {
     CreationYearComparator creationYearComparator = new CreationYearComparator();
     StrengthComparator strengthComparator = new StrengthComparator();
 
-    public ArrayList<Superhero> load() throws FileNotFoundException {
+    public ArrayList<Superhero> load() throws IOException {
         ArrayList<Superhero> temp = new ArrayList<>();
-        try(Scanner myReader = new Scanner(file)) {
+        try(Scanner myReader = new Scanner(file, StandardCharsets.ISO_8859_1)) {
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 String[] superhelteData = data.split(",");
@@ -38,6 +40,8 @@ public class Filehandler {
                 }
             }
         }
+        this.superheroes.clear();
+        this.superheroes.addAll(temp); // Add all loaded superheroes
         return temp;
     }
 
@@ -51,6 +55,7 @@ public class Filehandler {
         }
     }
     public void sortBySuperheroName(){
+
         Collections.sort(superheroes, new SuperheroNameComparator());
     }
     public void sortByCreationYear(){

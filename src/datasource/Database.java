@@ -3,6 +3,7 @@ package datasource;
 import file.Filehandler;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Database {
@@ -104,11 +105,12 @@ public class Database {
         file.save(superheroes);
 
     }
-    public void load() throws FileNotFoundException {
+    public void load() throws IOException {
         superheroes = file.load();
     }
     public void sortBySuperheroName(){
         file.sortBySuperheroName();
+
     }
     public void sortByName(){
         file.sortByName();
