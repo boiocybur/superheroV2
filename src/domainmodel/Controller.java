@@ -3,7 +3,6 @@ package domainmodel;
 import datasource.Database;
 import datasource.Superhero;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -51,19 +50,11 @@ public class Controller {
     public void save(){
         db.save();
     }
-    public void sortByName(){
-        db.sortByName();
+    public void sortByTwoAttributes(int primary, int secondary) {
+        db.sortByTwoAttributes(primary, secondary);
     }
-    public void sortBySuperheroName(){
-        db.sortBySuperheroName();
+    public void sortByOneAttribute(int primary) {
+        db.sortByOneAttribute(primary);
     }
-    public void sortByIsHuman(){
-        db.sortByIsHuman();
-    }
-    public void sortByCreationYear(){
-        db.sortByCreationYear();
-    }
-    public void sortByStrength(){
-        db.sortByStrength();
-    }
+
 }

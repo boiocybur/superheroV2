@@ -3,6 +3,7 @@ import datasource.Superhero;
 import domainmodel.Controller;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -184,51 +185,49 @@ public class UserInterface {
                             }
                         }
                     }
-                        case 5 -> {
-                            System.out.println("Enter the name of the superhero you wish to remove: ");
-                            String removeSuperheroName = scanner.nextLine().trim().toLowerCase(); // Convert input to lowercase
+                    case 5 -> {
+                        System.out.println("Enter the name of the superhero you wish to remove: ");
+                        String removeSuperheroName = scanner.nextLine().trim().toLowerCase(); // Convert input to lowercase
 
-                            // Call the removeSuperhero method to remove the superhero by name
-                            controller.removeSuperhero(removeSuperheroName);
+                        // Call the removeSuperhero method to remove the superhero by name
+                        controller.removeSuperhero(removeSuperheroName);
 
-                            // Check if any superheroes were removed
-                            if (controller.getAllSuperheroes().stream().noneMatch(superhero ->
-                                    superhero.getSuperHeroName().trim().equalsIgnoreCase(removeSuperheroName))) {
-                                System.out.println("Superhero(s) removed successfully.");
-                            } else {
-                                System.out.println("Superhero not found in the database.");
-                            }
+                        // Check if any superheroes were removed
+                        if (controller.getAllSuperheroes().stream().noneMatch(superhero ->
+                                superhero.getSuperHeroName().trim().equalsIgnoreCase(removeSuperheroName))) {
+                            System.out.println("Superhero(s) removed successfully.");
+                        } else {
+                            System.out.println("Superhero not found in the database.");
                         }
-                        case 6 -> {
-                            controller.load();
-                            System.out.println("Load successful");
+                    }
+                    case 6 -> {
+                        controller.load();
+                        System.out.println("Load successful");
+                    }
+                    case 7 -> {
+                        controller.save();
+                        System.out.println("Save successful");
+                    }
+                    case 8 -> {
+                        System.out.println("Please select sorting method");
+                        System.out.println("""
+                                Available options:
+                                1. Sort by name
+                                2. Sort by superhero name
+                                3. Sort by creation year
+                                4. Sort by humanity
+                                5. Sort by strength""");
+                        System.out.println("By pressing a number.");
+                        int sortingInput = scanner.nextInt();
+                        controller.sortByOneAttribute(sortingInput);
+                        System.out.println("Would you like a secondary sorting criteria?");
+                        System.out.println("Select a secondary criteria, else press 0 to skip");
+                        int sortingInputTwo = scanner.nextInt();
+                        if(sortingInputTwo == 0){
+                            break;
                         }
-                        case 7 -> {
-                            controller.save();
-                            System.out.println("Save successful");
-                        }
-                        case 8 ->{
-                            System.out.println("Please select sorting method");
-                            System.out.println("""
-                                    Available options:
-                                    1. Sort by name
-                                    2. Sort by superheroname
-                                    3. Sort by creation year
-                                    4. Sort by humanity
-                                    5. Sort by strength""");
-                            int sortingInput = scanner.nextInt();
-                            if(sortingInput == 1){
-                                controller.sortByName();
-                            }else if(sortingInput == 2){
-                                controller.sortBySuperheroName();
-                            }else if(sortingInput == 3){
-                                controller.sortByCreationYear();
-                            }else if(sortingInput == 4){
-                                controller.sortByIsHuman();
-                            }else if(sortingInput == 5){
-                                controller.sortByStrength();
-                            }
-                            controller.save();
+                        controller.sortByTwoAttributes(sortingInput, sortingInputTwo);
+                        controller.save();
                         }
                         case 9 -> {
                             // exit program
@@ -246,8 +245,8 @@ public class UserInterface {
                 }
             }
         }
-    // Check if the name contains only letters, spaces, and hyphens
-    private boolean isValidName(String name) {
-        return name.matches("^[a-zA-Z\\s-]*$");
-    }
+        // Check if the name contains only letters, spaces, and hyphens
+        private boolean isValidName (String name){
+            return name.matches("^[a-zA-Z\\s-]*$");
+        }
 }

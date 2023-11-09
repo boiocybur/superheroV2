@@ -1,6 +1,5 @@
 package file;
 
-import datasource.Database;
 import datasource.Superhero;
 
 import java.io.File;
@@ -9,17 +8,12 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class Filehandler {
     private File file = new File("superhero.csv");
-    private ArrayList<Superhero> superheroes = new ArrayList<>();
-    NameComparator nameComparator = new NameComparator();
-    SuperheroNameComparator superheroNameComparator = new SuperheroNameComparator();
-    isHumanComparator isHumanComparator = new isHumanComparator();
-    CreationYearComparator creationYearComparator = new CreationYearComparator();
-    StrengthComparator strengthComparator = new StrengthComparator();
+    private ArrayList<Superhero> herofiles = new ArrayList<>();
+
 
     public ArrayList<Superhero> load() throws IOException {
         ArrayList<Superhero> temp = new ArrayList<>();
@@ -30,7 +24,7 @@ public class Filehandler {
                 if (superhelteData.length == 6) {
                     String name = superhelteData[0];
                     String superheroName = superhelteData[1];
-                    Boolean isHuman = Boolean.parseBoolean(superhelteData[2]);
+                    boolean isHuman = Boolean.parseBoolean(superhelteData[2]);
                     int creationYear = Integer.parseInt(superhelteData[3]);
                     String superpower = superhelteData[4];
                     int strength = Integer.parseInt(superhelteData[5]);
@@ -40,8 +34,7 @@ public class Filehandler {
                 }
             }
         }
-        this.superheroes.clear();
-        this.superheroes.addAll(temp); // Add all loaded superheroes
+        this.herofiles.addAll(temp); // Add all loaded superheroes
         return temp;
     }
 
@@ -54,20 +47,8 @@ public class Filehandler {
             e.printStackTrace();
         }
     }
-    public void sortBySuperheroName(){
-
-        Collections.sort(superheroes, new SuperheroNameComparator());
-    }
-    public void sortByCreationYear(){
-        Collections.sort(superheroes, new CreationYearComparator());
-    }
-    public void sortByIsHuman(){
-        Collections.sort(superheroes, new isHumanComparator());
-    }
-    public void sortByName(){
-        Collections.sort(superheroes, new NameComparator());
-    }
-    public void sortbyStrength(){
-        Collections.sort(superheroes, new StrengthComparator());
+    public ArrayList<Superhero> getHerofiles(){
+        return herofiles;
     }
 }
+

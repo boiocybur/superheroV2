@@ -1,15 +1,20 @@
 package datasource;
 
-import file.Filehandler;
+import file.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Database {
-    private ArrayList<Superhero> superheroes = new ArrayList<>();
     private Filehandler file = new Filehandler();
-
+    private ArrayList<Superhero> superheroes = new ArrayList<>();
+    NameComparator nameComparator = new NameComparator();
+    SuperheroNameComparator superheroNameComparator = new SuperheroNameComparator();
+    file.isHumanComparator isHumanComparator = new isHumanComparator();
+    CreationYearComparator creationYearComparator = new CreationYearComparator();
+    StrengthComparator strengthComparator = new StrengthComparator();
 
     public void addSuperhero(String name, String superHeroName, boolean isHuman, int creationYear, String superpower, int strength) throws IllegalArgumentException {
         if (!isValidInput(name, superHeroName, creationYear, superpower, strength)) {
@@ -106,23 +111,37 @@ public class Database {
 
     }
     public void load() throws IOException {
-        superheroes = file.load();
+     file.load();
+        superheroes.addAll(file.getHerofiles());
     }
-    public void sortBySuperheroName(){
-        file.sortBySuperheroName();
-
+    public void sortByOneAttribute(int primaryAttribute){
+        Comparator<Superhero> primaryComparator = getPrimaryComparatorBasedOnAttribute(primaryAttribute);
+        Collections.sort(superheroes, primaryComparator);
     }
-    public void sortByName(){
-        file.sortByName();
+    public void sortByTwoAttributes(int primaryAttribute, int secondaryAttribute) {
+        Comparator<Superhero> primaryComparator = getPrimaryComparatorBasedOnAttribute(primaryAttribute);
+        Comparator<Superhero> secondaryComparator = getSecondaryComparatorBasedOnAttribute(secondaryAttribute);
+        Collections.sort(superheroes, primaryComparator.thenComparing(secondaryComparator));
     }
-    public void sortByCreationYear(){
-        file.sortByCreationYear();
+    private Comparator<Superhero> getPrimaryComparatorBasedOnAttribute(int attribute) {
+        return switch (attribute) {
+            case 1 -> nameComparator;
+            case 2 -> superheroNameComparator;
+            case 3 -> isHumanComparator;
+            case 4 -> creationYearComparator;
+            case 5 -> strengthComparator;
+            default -> throw new IllegalArgumentException("Invalid attribute for sorting: " + attribute);
+        };
     }
-    public void sortByStrength(){
-        file.sortbyStrength();
-    }
-    public void sortByIsHuman(){
-        file.sortByIsHuman();
+    private Comparator<Superhero> getSecondaryComparatorBasedOnAttribute(int attribute) {
+        return switch (attribute) {
+            case 1 -> nameComparator;
+            case 2 -> superheroNameComparator;
+            case 3 -> isHumanComparator;
+            case 4 -> creationYearComparator;
+            case 5 -> strengthComparator;
+            default -> throw new IllegalArgumentException("Invalid attribute for sorting: " + attribute);
+        };
     }
 }
 
