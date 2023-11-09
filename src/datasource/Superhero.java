@@ -2,7 +2,7 @@ package datasource;
 
 public class Superhero {
     private String name;
-    private String superHeroName;
+    private String superheroName;
     private boolean isHuman;
     private int creationYear;
     private String superpower;
@@ -11,9 +11,9 @@ public class Superhero {
     public Superhero(String name, String superHeroName, boolean isHuman, int creationYear, String superpower, int strength) {
         this.name = name;
         if (superHeroName != null && !superHeroName.isEmpty()) {
-            this.superHeroName = superHeroName;
+            this.superheroName = superHeroName;
         } else {
-            this.superHeroName = "No Hero name"; // Default value for superhero name
+            this.superheroName = "No Hero name"; // Default value for superhero name
         }
         this.isHuman = isHuman;
         this.creationYear = creationYear;
@@ -26,7 +26,7 @@ public class Superhero {
     }
 
     public void setSuperHeroName(String superHeroName) {
-        this.superHeroName = superHeroName;
+        this.superheroName = superHeroName;
     }
 
     public void setIsHuman(boolean human) {
@@ -49,8 +49,8 @@ public class Superhero {
         return name;
     }
 
-    public String getSuperHeroName() {
-        return superHeroName;
+    public String getSuperheroName() {
+        return superheroName;
     }
 
     public boolean isHuman() {
@@ -74,7 +74,7 @@ public class Superhero {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(name);
         stringBuilder.append(",");
-        stringBuilder.append(superHeroName);
+        stringBuilder.append(superheroName);
         stringBuilder.append(",");
         stringBuilder.append(isHuman);
         stringBuilder.append(",");

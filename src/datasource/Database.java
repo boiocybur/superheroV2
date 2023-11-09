@@ -47,7 +47,7 @@ public class Database {
 
         if (searchCriteria != null) {  // Add error handling for null input
             for (Superhero superhero : superheroes) {
-                if (superhero.getName().toLowerCase().contains(searchCriteria) || superhero.getSuperHeroName().toLowerCase().contains(searchCriteria)) {
+                if (superhero.getName().toLowerCase().contains(searchCriteria) || superhero.getSuperheroName().toLowerCase().contains(searchCriteria)) {
                     searchResult.add(superhero);
                 }
             }
@@ -66,7 +66,7 @@ public class Database {
     }
     public void printHeroDetails(Superhero hero){
         System.out.println("Name: " + hero.getName());
-        System.out.println("Superhero name: " + hero.getSuperHeroName());
+        System.out.println("Superhero name: " + hero.getSuperheroName());
         System.out.println("Is a human: " + (hero.isHuman() ? "Yes" : "No"));
         System.out.println("Creation year: " + hero.getCreationYear());
         System.out.println("Superpower: " + hero.getSuperpower());
@@ -93,14 +93,14 @@ public class Database {
 
         if (!superheroFound) {
             // If no matching superhero is found in the database
-            System.out.println("datasource.Superhero not found.");
+            System.out.println("Superhero not found.");
         }
     }
 
     public void removeSuperhero(String superheroName) {
         ArrayList<Superhero> superheroesToRemove = new ArrayList<>();
         for (Superhero superheroInDatabase : superheroes) {
-            if (superheroInDatabase.getSuperHeroName().trim().equalsIgnoreCase(superheroName)) {
+            if (superheroInDatabase.getSuperheroName().trim().equalsIgnoreCase(superheroName)) {
                 superheroesToRemove.add(superheroInDatabase);
             }
         }

@@ -3,7 +3,6 @@ import datasource.Superhero;
 import domainmodel.Controller;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -115,7 +114,7 @@ public class UserInterface {
                         // Search for superheroes with a partial match in either name or superhero name
                         for (Superhero hero : controller.getAllSuperheroes()) {
                             if (hero.getName().toLowerCase().contains(partialSearchCriteria.toLowerCase()) ||
-                                    hero.getSuperHeroName().toLowerCase().contains(partialSearchCriteria.toLowerCase())) {
+                                    hero.getSuperheroName().toLowerCase().contains(partialSearchCriteria.toLowerCase())) {
                                 matchingSuperheroes.add(hero);
                             }
                         }
@@ -127,7 +126,7 @@ public class UserInterface {
 
                             for (int i = 0; i < matchingSuperheroes.size(); i++) {
                                 Superhero hero = matchingSuperheroes.get(i);
-                                System.out.println(i + 1 + ". " + hero.getName() + " (" + hero.getSuperHeroName() + ")");
+                                System.out.println(i + 1 + ". " + hero.getName() + " (" + hero.getSuperheroName() + ")");
                             }
 
                             System.out.print("Enter the number of the superhero you wish to edit: ");
@@ -194,7 +193,7 @@ public class UserInterface {
 
                         // Check if any superheroes were removed
                         if (controller.getAllSuperheroes().stream().noneMatch(superhero ->
-                                superhero.getSuperHeroName().trim().equalsIgnoreCase(removeSuperheroName))) {
+                                superhero.getSuperheroName().trim().equalsIgnoreCase(removeSuperheroName))) {
                             System.out.println("Superhero(s) removed successfully.");
                         } else {
                             System.out.println("Superhero not found in the database.");
